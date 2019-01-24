@@ -1,5 +1,7 @@
 package com.example.luolab.acquisition_platform;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -39,11 +41,30 @@ public class Register {
                     Toast.makeText(inflater.getContext(),"請勿空白，確實填寫",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    GetDB(Insert_Query_Command +
+                    String result = GetDB(Insert_Query_Command +
                             "('" + Name.getText().toString() + "','"
                             + account.getText().toString() + "','"
                             + psd.getText().toString() + "')", Insert_Uri);
-                    Toast.makeText(inflater.getContext(),"註冊成功",Toast.LENGTH_SHORT).show();
+                    if(result.equals("")) {
+                        new AlertDialog.Builder(inflater.getContext()).setMessage("此應用程式需要有網路，偵測您無開啟網路" + '\n' + "請確定開始此應用程式時，網路是有連線的狀態" + '\n' + "如未開啟網路並連線，請開啟連線後，關閉此程式再重新開啟此應用程式")
+                                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
+                    else {
+                        new AlertDialog.Builder(inflater.getContext()).setMessage("註冊成功")
+                                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
                 }
             }
         });

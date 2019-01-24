@@ -277,6 +277,14 @@ public class GsrView extends Fragment{
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            new AlertDialog.Builder(G_Inflater.getContext()).setMessage("此應用程式需要有網路，偵測您無開啟網路" + '\n' + "請確定開始此應用程式時，網路是有連線的狀態" + '\n' + "如未開啟網路並連線，請開啟連線後，關閉此程式再重新開啟此應用程式")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .create()
+                    .show();
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
